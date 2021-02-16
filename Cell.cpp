@@ -282,8 +282,8 @@ RealDevice::RealDevice(int x, int y,int NumCellperSynapse) {
 	writePulseWidthLTP = 300e-6;	// Write pulse width (s) for LTP or weight increase
 	writePulseWidthLTD = 300e-6;	// Write pulse width (s) for LTD or weight decrease
 	writeEnergy = 0;	// Dynamic variable for calculation of write energy (J)
-	maxNumLevelLTP =16;	// Maximum number of conductance states during LTP or weight increase
-	maxNumLevelLTD =16; // Maximum number of conductance states during LTD or weight decrease
+	maxNumLevelLTP =64;	// Maximum number of conductance states during LTP or weight increase
+	maxNumLevelLTD =64; // Maximum number of conductance states during LTD or weight decrease
 	numPulse = 0;	// Number of write pulses used in the most recent write operation (dynamic variable)
 	cmosAccess = true;	// True: Pseudo-crossbar (1T1R), false: cross-point
     FeFET = false;		// True: FeFET structure (Pseudo-crossbar only, should be cmosAccess=1)
@@ -319,8 +319,8 @@ RealDevice::RealDevice(int x, int y,int NumCellperSynapse) {
 	localGen.seed(std::time(0));
 	
 	/* Device-to-device weight update variation */
-	NL_LTP =3.0;	// LTP nonlinearity
-	NL_LTD =-3.0;	// LTD nonlinearity
+	NL_LTP =0.0;	// LTP nonlinearity
+	NL_LTD =0.0;	// LTD nonlinearity
 	sigmaDtoD = 0;	// Sigma of device-to-device weight update vairation in gaussian distribution
 	gaussian_dist2 = new std::normal_distribution<double>(0, sigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
 	paramALTP = getParamA(NL_LTP + (*gaussian_dist2)(localGen)) * maxNumLevelLTP;	// Parameter A for LTP nonlinearity
